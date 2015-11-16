@@ -13,7 +13,7 @@ class Cell {
         this.y = y;
     }
 
-    public static Cell at(int x, int y){
+    static Cell at(int x, int y){
         return new Cell(x, y);
     }
 

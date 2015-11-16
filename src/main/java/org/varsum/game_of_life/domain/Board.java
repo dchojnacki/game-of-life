@@ -7,7 +7,6 @@ import java.util.Set;
  * @author The Watchmaker
  */
 public class Board {
-    // FIXME watchmaker make board "matrix" endless
     private final int boardMatrixSize;
     private Set<Cell> activeCells;
 
@@ -21,11 +20,14 @@ public class Board {
         activeCells.add(Cell.at(x, y));
     }
 
+    public void setInactiveCellAt(int x, int y) {
+        activeCells.remove(Cell.at(x, y));
+    }
     public boolean isCellActiveAt(int x, int y) {
         return activeCells.contains(Cell.at(x, y));
     }
 
-    public int getActiveNeighbourCellsCount(int x, int y) {
+    private int getActiveNeighbourCellsCount(int x, int y) {
         int startX = calculateStartIndex(x);
         int endX = calculateEndIndex(x);
         int startY = calculateStartIndex(y);
@@ -34,10 +36,10 @@ public class Board {
         int count = 0;
         for (int i = startX; i <= endX; i++) {
             for (int j = startY; j <= endY; j++) {
-                if (i == x && j == y){
+                if (i == x && j == y) {
                     continue;
                 }
-                if (activeCells.contains(Cell.at(i, j))){
+                if (activeCells.contains(Cell.at(i, j))) {
                     count++;
                 }
             }
@@ -54,11 +56,10 @@ public class Board {
         return x != 0 ? x - 1 : 0;
     }
 
-
     public Board tickle() {
         Board board = new Board(this.boardMatrixSize);
 
-        for (int i = 0; i < boardMatrixSize ; i++) {
+        for (int i = 0; i < boardMatrixSize; i++) {
             for (int j = 0; j < boardMatrixSize; j++) {
                 int activeNeighbourCells = getActiveNeighbourCellsCount(i, j);
                 boolean cellIsAlive = activeNeighbourCells == 3 || (activeNeighbourCells == 2 && isCellActiveAt(i, j));
@@ -71,7 +72,23 @@ public class Board {
         return board;
     }
 
-    public int getBoardMatrixSize() {
+    private int getBoardMatrixSize() {
         return boardMatrixSize;
+    }
+
+    public String debugBoardMatrix() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < boardMatrixSize; i++) {
+            for (int j = 0; j < boardMatrixSize; j++) {
+                if (isCellActiveAt(i, j)) {
+                    sb.append("1");
+                } else {
+                    sb.append("0");
+                }
+            }
+            sb.append("\n");
+        }
+
+        return sb.toString();
     }
 }

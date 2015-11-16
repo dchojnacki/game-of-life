@@ -97,7 +97,6 @@ public class BoardSpec extends Specification{
             !newBoard.isCellActiveAt(1,1)
     }
 
-
     def "cell still lives because of 2 active neighbors"(){
         when:
             sut.setActiveCellAt(0,0)
@@ -132,4 +131,19 @@ public class BoardSpec extends Specification{
         then:
             newBoard.isCellActiveAt(1,1)
     }
+
+    def "debug should print correct cell matrix"(){
+        when:
+            sut.setActiveCellAt(0,0)
+            sut.setActiveCellAt(0,1)
+            sut.setActiveCellAt(1,0)
+            sut.setActiveCellAt(1,2)
+            sut.setActiveCellAt(2,1)
+
+            Board newBoard = sut.tickle()
+        then:
+            "1100\n1010\n0100\n0000\n" == newBoard.debugBoardMatrix()
+    }
+
+
 }
