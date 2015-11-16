@@ -54,4 +54,24 @@ public class Board {
         return x != 0 ? x - 1 : 0;
     }
 
+
+    public Board tickle() {
+        Board board = new Board(this.boardMatrixSize);
+
+        for (int i = 0; i < boardMatrixSize ; i++) {
+            for (int j = 0; j < boardMatrixSize; j++) {
+                int activeNeighbourCells = getActiveNeighbourCellsCount(i, j);
+                boolean cellIsAlive = activeNeighbourCells == 3 || (activeNeighbourCells == 2 && isCellActiveAt(i, j));
+                if (cellIsAlive) {
+                    board.setActiveCellAt(i, j);
+                }
+            }
+        }
+
+        return board;
+    }
+
+    public int getBoardMatrixSize() {
+        return boardMatrixSize;
+    }
 }
