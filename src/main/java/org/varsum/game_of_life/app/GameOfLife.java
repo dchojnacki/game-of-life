@@ -11,6 +11,7 @@ public class GameOfLife extends JFrame {
         BoardFrame life = new BoardFrame();
 
         life.setLocationRelativeTo(null);
-        life.show();
+        life.setTitle("Game of Life by The Watchmaker");
+        life.setVisible(true);
     }
 }

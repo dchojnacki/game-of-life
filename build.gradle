@@ -6,6 +6,9 @@ buildscript {
 
 apply plugin: 'groovy'
 apply plugin: 'idea'
+apply plugin: 'application'
+
+mainClassName = "org.varsum.game_of_life.app.GameOfLife"
 
 jar {
     baseName = 'game-of-life'
@@ -19,7 +22,7 @@ repositories {
 }
 
 dependencies {
-    compile('org.codehaus.groovy:groovy')
+    compile "org.codehaus.groovy:groovy-all:2.4.1"
 
     testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
     testCompile "org.hamcrest:hamcrest-core:1.3"
